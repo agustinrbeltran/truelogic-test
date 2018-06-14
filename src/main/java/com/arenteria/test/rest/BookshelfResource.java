@@ -1,5 +1,8 @@
 package com.arenteria.test.rest;
 
+import com.arenteria.test.core.exception.InternalServerErrorException;
+import com.arenteria.test.core.exception.NotFoundException;
+import com.arenteria.test.core.exception.ServiceException;
 import com.arenteria.test.domain.dto.BookDTO;
 import com.arenteria.test.service.BookshelfService;
 import javax.ws.rs.*;
@@ -28,14 +31,25 @@ public class BookshelfResource {
     @GET
     @Path("/books/{id}")
     public Response getAllBooks(@PathParam("id") long id) {
-        return Response.ok(bookshelfService.findBookById(id)).build();
+        try {
+            return Response.ok(bookshelfService.findBookById(id)).build();
+        }catch (ServiceException e){
+            NotFoundException notFoundException = new NotFoundException(404,"Book not found");
+            return Response.noContent().entity(notFoundException).build();
+        }
     }
 
 
     @POST
     @Path("/books")
     public Response saveBook(BookDTO bookDTO) {
-        bookshelfService.saveBook(bookDTO);
-        return Response.ok().entity("SUCCESS").build();
+        try{
+            bookshelfService.saveBook(bookDTO);
+            return Response.ok().entity("SUCCESS").build();
+        }catch (ServiceException e){
+            InternalServerErrorException internalServerErrorException = new InternalServerErrorException(500,"The book could not be saved.");
+            return Response.serverError().entity(internalServerErrorException).build();
+        }
+
     }
 }
