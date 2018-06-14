@@ -152,6 +152,7 @@
     <mainClass>com.arenteria.test.TruelogicTestApplication</mainClass>
     <swagger.version>1.5.10</swagger.version>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <hikari.version>2.7.8</hikari.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <jooq.version>3.11.0</jooq.version>
   </properties>

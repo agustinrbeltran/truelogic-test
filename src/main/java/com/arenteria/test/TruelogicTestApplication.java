@@ -1,5 +1,6 @@
 package com.arenteria.test;
 
+import com.arenteria.test.config.DatasourceConfig;
 import com.arenteria.test.domain.mapper.BookMapper;
 import com.arenteria.test.integration.dao.BookDAO;
 import com.arenteria.test.integration.dao.impl.BookDAOImpl;
@@ -13,6 +14,8 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.assets.AssetsBundle;
 import org.jooq.Configuration;
+import org.jooq.impl.DefaultConfiguration;
+import org.jooq.impl.DefaultRecordMapperProvider;
 import org.sqlite.SQLiteConfig;
 
 
@@ -44,9 +47,12 @@ public class TruelogicTestApplication extends Application<TruelogicTestConfigura
     public void run(final TruelogicTestConfiguration configuration,
                     final Environment environment) {
 
-        final BookDAO bookDAO = new BookDAOImpl();
+        DefaultConfiguration dbConf = new DefaultConfiguration();
+        dbConf.setDataSource(DatasourceConfig.createDatasource());
+
+        final BookDAO bookDAO = new BookDAOImpl(dbConf);
         final BookMapper bookMapper = new BookMapper();
-        final BookshelfService bookshelfService = new BookshelfServiceImpl(bookDAO,bookMapper);
+        final BookshelfService bookshelfService = new BookshelfServiceImpl(bookDAO, bookMapper);
         final BookshelfResource bookshelfResource = new BookshelfResource(bookshelfService);
 
         environment.jersey().register(bookshelfResource);
