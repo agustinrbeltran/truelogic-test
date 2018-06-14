@@ -42,6 +42,7 @@ public class BookshelfServiceImpl implements BookshelfService {
 
     @Override
     public BookDTO findBookById(Integer id) throws ServiceException {
+
         BookDTO bookDTO = null;
         try {
             BookEntity bookEntity = bookDAO.fetchOneById(id);
@@ -51,17 +52,18 @@ public class BookshelfServiceImpl implements BookshelfService {
         }
 
         return bookDTO;
+
     }
 
     @Override
     public void saveBook(BookDTO bookDTO) throws ServiceException {
 
-        BookEntity bookEntity = bookMapper.bookDTOToBookEntity(bookDTO);
         try {
+            BookEntity bookEntity = bookMapper.bookDTOToBookEntity(bookDTO);
             bookDAO.save(bookEntity);
         } catch (DaoException e) {
             throw new ServiceException();
         }
-        throw new ServiceException();
+
     }
 }

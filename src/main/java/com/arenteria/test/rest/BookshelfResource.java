@@ -23,21 +23,22 @@ public class BookshelfResource {
 
     @GET
     @Path("/books")
-    public Response getAllBooks() {
+    public Response getAllBooks(
+            @QueryParam("tittle") String title,
+            @QueryParam("description") String description) {
+
+        if (title != null){
+            return Response.ok(bookshelfService.findBookByTittle(title)).build();
+        }else{
+            if(description != null){
+                return Response.ok(bookshelfService.findBookByDescription(description)).build();
+
+            }
+        }
+
         return Response.ok(bookshelfService.findAllBooks()).build();
     }
 
-    @GET
-    @Path("/books")
-    public Response getBooksByTittle(@QueryParam("tittle") String title) {
-        return Response.ok(bookshelfService.findBookByTittle(title)).build();
-    }
-
-    @GET
-    @Path("/books")
-    public Response getBooksByDesription(@QueryParam("description") String description) {
-        return Response.ok(bookshelfService.findBookByDescription(description)).build();
-    }
 
     @GET
     @Path("/books/{id}")

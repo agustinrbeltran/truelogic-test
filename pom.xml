@@ -23,7 +23,7 @@
         <jooq.version>3.11.0</jooq.version>
         <sqlite.version>3.23.1</sqlite.version>
         <swagger.version>1.5.10</swagger.version>
-        <hikari.version>2.7.8</hikari.version>
+        <jooq-dropwizzard-bundle.version>1.2.0-0</jooq-dropwizzard-bundle.version>
         <mainClass>com.arenteria.test.TruelogicTestApplication</mainClass>
     </properties>
 
@@ -42,17 +42,17 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP</artifactId>
-            <version>${hikari.version}</version>
-        </dependency>
-        <dependency>
             <groupId>io.dropwizard</groupId>
             <artifactId>dropwizard-core</artifactId>
         </dependency>
         <dependency>
             <groupId>io.dropwizard</groupId>
             <artifactId>dropwizard-assets</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.bendb.dropwizard</groupId>
+            <artifactId>dropwizard-jooq</artifactId>
+            <version>${jooq-dropwizzard-bundle.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jooq</groupId>

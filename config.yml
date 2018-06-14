@@ -36,4 +36,20 @@ logging:
       timeZone: UTC
       maxFileSize: 10MB
 
+database:
+  driverClass: org.sqlite.JDBC
+  url: jdbc:sqlite:/home/truelogic.db
 
+jooq:
+  dialect: SQLITE
+  logExecutedSql: yes
+  renderSchema: yes
+  renderNameStyle: QUOTED
+  renderKeywordStyle: LOWER
+  renderFormatted: no
+  paramType: INDEXED
+  statementType: PREPARED_STATEMENT
+  executeLogging: no
+  executeWithOptimisticLocking: no
+  attachRecords: yes
+  updatablePrimaryKeys: no
