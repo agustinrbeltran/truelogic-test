@@ -30,12 +30,8 @@ public class BookDAOImpl extends DAOImpl<BookRecord, BookEntity, Integer> implem
         return fetch(Book.BOOK.ID, values);
     }
 
-    public BookEntity fetchOneById(Integer value) throws DaoException {
-        BookEntity bookEntity = fetchOne(Book.BOOK.ID, value);
-        if (bookEntity == null) {
-            throw new DaoException();
-        }
-        return bookEntity;
+    public BookEntity fetchOneById(Integer value) {
+        return fetchOne(Book.BOOK.ID, value);
     }
 
     public List<BookEntity> fetchByTittle(String... values) {

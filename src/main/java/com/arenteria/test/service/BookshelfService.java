@@ -12,7 +12,7 @@ public interface BookshelfService {
 
     Collection<BookDTO> findAllBooks();
 
-    BookDTO findBookById(Integer id) throws ServiceException;
+    BookDTO findBookById(Integer id);
 
     void saveBook(BookDTO bookDTO) throws ServiceException;
 }

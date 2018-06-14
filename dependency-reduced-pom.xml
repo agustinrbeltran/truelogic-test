@@ -147,15 +147,14 @@
     </dependencies>
   </dependencyManagement>
   <properties>
-    <swagger.version>1.5.10</swagger.version>
-    <mainClass>com.arenteria.test.TruelogicTestApplication</mainClass>
-    <hikari.version>2.7.8</hikari.version>
-    <jooq.version>3.11.0</jooq.version>
-    <dropwizard.version>1.3.3</dropwizard.version>
+    <jooq-dropwizzard-bundle.version>1.2.0-0</jooq-dropwizzard-bundle.version>
     <sqlite.version>3.23.1</sqlite.version>
+    <dropwizard.version>1.3.3</dropwizard.version>
+    <mainClass>com.arenteria.test.TruelogicTestApplication</mainClass>
+    <swagger.version>1.5.10</swagger.version>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <jooq-dropwizzard-bundle.version>1.2.0-0</jooq-dropwizzard-bundle.version>
+    <jooq.version>3.11.0</jooq.version>
   </properties>
 </project>
 

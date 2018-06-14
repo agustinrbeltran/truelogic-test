@@ -8,7 +8,7 @@ public interface BookDAO {
 
     List<BookEntity> fetchById(Integer... values);
 
-    BookEntity fetchOneById(Integer value) throws DaoException;
+    BookEntity fetchOneById(Integer value);
 
     List<BookEntity> fetchByTittle(String... values);
 

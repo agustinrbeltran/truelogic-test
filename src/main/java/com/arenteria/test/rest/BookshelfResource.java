@@ -50,13 +50,15 @@ public class BookshelfResource {
     @GET
     @Path("/books/{id}")
     public Response getBook(@PathParam("id") Integer id) {
-        try {
+
             BookDTO response = bookshelfService.findBookById(id);
-            return Response.ok(response).build();
-        } catch (ServiceException e) {
+
+            if (response != null){
+                return Response.ok(response).build();
+            }
+
             NotFoundException notFoundException = new NotFoundException(404, "Book not found");
-            return Response.noContent().entity(notFoundException).build();
-        }
+            return Response.status(Response.Status.NOT_FOUND).entity(notFoundException).build();
     }
 
 

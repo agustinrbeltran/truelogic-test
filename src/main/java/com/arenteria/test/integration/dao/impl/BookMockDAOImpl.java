@@ -14,7 +14,7 @@ public class BookMockDAOImpl implements BookDAO {
     }
 
     @Override
-    public BookEntity fetchOneById(Integer value) throws DaoException {
+    public BookEntity fetchOneById(Integer value) {
         return null;
     }
 

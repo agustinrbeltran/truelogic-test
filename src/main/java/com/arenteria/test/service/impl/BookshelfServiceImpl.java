@@ -7,6 +7,7 @@ import com.arenteria.test.domain.entity.BookEntity;
 import com.arenteria.test.domain.mapper.BookMapper;
 import com.arenteria.test.integration.dao.BookDAO;
 import com.arenteria.test.service.BookshelfService;
+
 import java.util.Collection;
 
 public class BookshelfServiceImpl implements BookshelfService {
@@ -41,17 +42,17 @@ public class BookshelfServiceImpl implements BookshelfService {
     }
 
     @Override
-    public BookDTO findBookById(Integer id) throws ServiceException {
+    public BookDTO findBookById(Integer id) {
 
-        BookDTO bookDTO = null;
-        try {
-            BookEntity bookEntity = bookDAO.fetchOneById(id);
-            bookDTO = bookMapper.bookEntityToBookDTO(bookEntity);
-        } catch (DaoException e) {
-            throw new ServiceException();
+        BookEntity bookEntity = bookDAO.fetchOneById(id);
+
+        BookDTO response = null;
+
+        if (bookEntity != null) {
+            response = bookMapper.bookEntityToBookDTO(bookEntity);
         }
 
-        return bookDTO;
+        return response;
 
     }
 
