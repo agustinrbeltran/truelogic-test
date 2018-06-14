@@ -20,7 +20,8 @@ public class BookMapper {
                     bookDTO.getId(),
                     bookDTO.getTittle(),
                     bookDTO.getDescription(),
-                    bookDTO.getDescription()
+                    bookDTO.getAuthor(),
+                    bookDTO.getContent()
             );
 
             return bookEntity;
@@ -43,7 +44,7 @@ public class BookMapper {
                 .collect(Collectors.toList());
     }
 
-    public BookEntity bookEntityFromId(Long id) {
+    public BookEntity bookEntityFromId(Integer id) {
         if (id == null) {
             return null;
         }

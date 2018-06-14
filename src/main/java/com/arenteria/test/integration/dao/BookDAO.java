@@ -2,18 +2,20 @@ package com.arenteria.test.integration.dao;
 
 import com.arenteria.test.core.exception.DaoException;
 import com.arenteria.test.domain.entity.BookEntity;
-import java.util.Collection;
+import java.util.List;
 
 public interface BookDAO {
 
-    Collection<BookEntity> findByTittle(String tittle, Integer pageSize, Integer pageNum);
+    List<BookEntity> fetchById(Integer... values);
 
-    Collection<BookEntity> findByDescription(String description, Integer pageSize, Integer pageNum);
+    BookEntity fetchOneById(Integer value) throws DaoException;
 
-    Collection<BookEntity> findAll(Integer pageSize, Integer pageNum);
+    List<BookEntity> fetchByTittle(String... values);
 
-    BookEntity findById(long id) throws DaoException;
+    List<BookEntity> fetchByDescription(String... values);
 
-    void create(BookEntity bookEntity) throws DaoException;
+    List<BookEntity> fetchByAuthor(String... values);
+
+    List<BookEntity> fetchByContent(String... values);
 
 }

@@ -25,12 +25,12 @@ public class BookshelfResource {
     public Response getAllBooks(
             @QueryParam("pageSize") Integer pageSize,
             @QueryParam("pageNum") Integer pageNum) {
-        return Response.ok( bookshelfService.findAllBooks(pageSize,pageNum)).build();
+        return Response.ok( bookshelfService.findAllBooks()).build();
     }
 
     @GET
     @Path("/books/{id}")
-    public Response getAllBooks(@PathParam("id") long id) {
+    public Response getBook(@PathParam("id") Integer id) {
         try {
             return Response.ok(bookshelfService.findBookById(id)).build();
         }catch (ServiceException e){

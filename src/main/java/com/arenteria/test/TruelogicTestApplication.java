@@ -12,6 +12,8 @@ import io.dropwizard.configuration.SubstitutingSourceProvider;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.assets.AssetsBundle;
+import org.jooq.Configuration;
+import org.sqlite.SQLiteConfig;
 
 
 public class TruelogicTestApplication extends Application<TruelogicTestConfiguration> {
@@ -41,7 +43,6 @@ public class TruelogicTestApplication extends Application<TruelogicTestConfigura
     @Override
     public void run(final TruelogicTestConfiguration configuration,
                     final Environment environment) {
-
 
         final BookDAO bookDAO = new BookDAOImpl();
         final BookMapper bookMapper = new BookMapper();

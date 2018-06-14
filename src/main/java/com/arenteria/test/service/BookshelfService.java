@@ -6,13 +6,13 @@ import java.util.Collection;
 
 public interface BookshelfService {
 
-    Collection<BookDTO> findBookByTittle(String tittle, Integer pageSize, Integer pageNum);
+    Collection<BookDTO> findBookByTittle(String tittle);
 
-    Collection<BookDTO> findBookByDescription(String description, Integer pageSize, Integer pageNum);
+    Collection<BookDTO> findBookByDescription(String description);
 
-    Collection<BookDTO> findAllBooks(Integer pageSize, Integer pageNum);
+    Collection<BookDTO> findAllBooks();
 
-    BookDTO findBookById(long id) throws ServiceException;
+    BookDTO findBookById(Integer id) throws ServiceException;
 
     void saveBook(BookDTO bookDTO) throws ServiceException;
 }

@@ -20,31 +20,31 @@ public class BookshelfServiceImpl implements BookshelfService {
     }
 
     @Override
-    public Collection<BookDTO> findBookByTittle(String tittle, Integer pageSize, Integer pageNum) {
-        Collection<BookEntity> books = bookDAO.findByTittle(tittle, pageSize, pageNum);
+    public Collection<BookDTO> findBookByTittle(String tittle) {
+        Collection<BookEntity> books = bookDAO.fetchByTittle(tittle);
         Collection<BookDTO> bookDTOs = bookMapper.bookEntitiesToBookDTOs(books);
         return bookDTOs;
     }
 
     @Override
-    public Collection<BookDTO> findBookByDescription(String description, Integer pageSize, Integer pageNum) {
-        Collection<BookEntity> books = bookDAO.findByTittle(description, pageSize, pageNum);
+    public Collection<BookDTO> findBookByDescription(String description) {
+        Collection<BookEntity> books = bookDAO.fetchByDescription(description);
         Collection<BookDTO> bookDTOs = bookMapper.bookEntitiesToBookDTOs(books);
         return bookDTOs;
     }
 
     @Override
-    public Collection<BookDTO> findAllBooks(Integer pageSize, Integer pageNum) {
-        Collection<BookEntity> books = bookDAO.findAll(pageSize, pageNum);
+    public Collection<BookDTO> findAllBooks() {
+        Collection<BookEntity> books = bookDAO.fetchByTittle("");
         Collection<BookDTO> bookDTOs = bookMapper.bookEntitiesToBookDTOs(books);
         return bookDTOs;
     }
 
     @Override
-    public BookDTO findBookById(long id) throws ServiceException {
+    public BookDTO findBookById(Integer id) throws ServiceException {
         BookDTO bookDTO = null;
         try {
-            BookEntity bookEntity = bookDAO.findById(id);
+            BookEntity bookEntity = bookDAO.fetchOneById(id);
             bookDTO = bookMapper.bookEntityToBookDTO(bookEntity);
         } catch (DaoException e) {
             throw new ServiceException();
@@ -56,11 +56,12 @@ public class BookshelfServiceImpl implements BookshelfService {
     @Override
     public void saveBook(BookDTO bookDTO) throws ServiceException {
 
-        BookEntity bookEntity = bookMapper.bookDTOToBookEntity(bookDTO);
+        /*BookEntity bookEntity = bookMapper.bookDTOToBookEntity(bookDTO);
         try {
             bookDAO.create(bookEntity);
         } catch (DaoException e) {
             throw new ServiceException();
-        }
+        }*/
+        throw new ServiceException();
     }
 }
