@@ -9,6 +9,9 @@ import com.arenteria.test.service.BookshelfService;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 
 @Path("/api/bookshelf")
@@ -27,16 +30,20 @@ public class BookshelfResource {
             @QueryParam("tittle") String title,
             @QueryParam("description") String description) {
 
-        if (title != null){
-            return Response.ok(bookshelfService.findBookByTittle(title)).build();
-        }else{
-            if(description != null){
-                return Response.ok(bookshelfService.findBookByDescription(description)).build();
+        Collection<BookDTO> response;
 
+        if (title != null) {
+            response = bookshelfService.findBookByTittle(title);
+        } else {
+            if (description != null) {
+                response = bookshelfService.findBookByDescription(description);
+            } else {
+                response = bookshelfService.findAllBooks();
             }
+
         }
 
-        return Response.ok(bookshelfService.findAllBooks()).build();
+        return Response.ok(response).build();
     }
 
 
@@ -44,8 +51,8 @@ public class BookshelfResource {
     @Path("/books/{id}")
     public Response getBook(@PathParam("id") Integer id) {
         try {
-            BookDTO bookDTO = bookshelfService.findBookById(id);
-            return Response.ok(bookDTO).build();
+            BookDTO response = bookshelfService.findBookById(id);
+            return Response.ok(response).build();
         } catch (ServiceException e) {
             NotFoundException notFoundException = new NotFoundException(404, "Book not found");
             return Response.noContent().entity(notFoundException).build();
@@ -63,6 +70,5 @@ public class BookshelfResource {
             InternalServerErrorException internalServerErrorException = new InternalServerErrorException(500, "The book could not be saved.");
             return Response.serverError().entity(internalServerErrorException).build();
         }
-
     }
 }
