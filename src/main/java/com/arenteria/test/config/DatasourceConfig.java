@@ -13,6 +13,7 @@ public class DatasourceConfig {
         config.setJdbcUrl("jdbc:sqlite:truelogic.db");
         config.setAutoCommit(true);
         config.setMaximumPoolSize(32);
+        config.setDriverClassName("org.sqlite.JDBC");
         return new HikariDataSource(config);
     }
 }

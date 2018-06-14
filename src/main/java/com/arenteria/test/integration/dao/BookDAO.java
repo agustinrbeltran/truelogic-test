@@ -18,4 +18,8 @@ public interface BookDAO {
 
     List<BookEntity> fetchByContent(String... values);
 
+    void save(BookEntity o) throws DaoException;
+
+    List<BookEntity> fetchAll();
+
 }

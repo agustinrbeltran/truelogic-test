@@ -61,4 +61,16 @@ public class BookDAOImpl extends DAOImpl<BookRecord, BookEntity, Integer> implem
     public List<BookEntity> fetchByContent(String... values) {
         return fetch(Book.BOOK.CONTENT, values);
     }
+
+    public void save(BookEntity o) throws DaoException{
+        try{
+            this.insert(o);
+        }catch (Exception e){
+            throw new DaoException();
+        }
+    }
+
+    public List<BookEntity> fetchAll() {
+        return findAll();
+    }
 }

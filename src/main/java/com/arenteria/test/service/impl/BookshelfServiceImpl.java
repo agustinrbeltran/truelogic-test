@@ -35,7 +35,7 @@ public class BookshelfServiceImpl implements BookshelfService {
 
     @Override
     public Collection<BookDTO> findAllBooks() {
-        Collection<BookEntity> books = bookDAO.fetchByTittle("");
+        Collection<BookEntity> books = bookDAO.fetchAll();
         Collection<BookDTO> bookDTOs = bookMapper.bookEntitiesToBookDTOs(books);
         return bookDTOs;
     }
@@ -56,12 +56,12 @@ public class BookshelfServiceImpl implements BookshelfService {
     @Override
     public void saveBook(BookDTO bookDTO) throws ServiceException {
 
-        /*BookEntity bookEntity = bookMapper.bookDTOToBookEntity(bookDTO);
+        BookEntity bookEntity = bookMapper.bookDTOToBookEntity(bookDTO);
         try {
-            bookDAO.create(bookEntity);
+            bookDAO.save(bookEntity);
         } catch (DaoException e) {
             throw new ServiceException();
-        }*/
+        }
         throw new ServiceException();
     }
 }
