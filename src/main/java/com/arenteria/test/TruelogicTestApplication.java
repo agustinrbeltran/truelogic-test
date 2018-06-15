@@ -9,6 +9,7 @@ import com.arenteria.test.service.BookshelfService;
 import com.arenteria.test.service.impl.BookshelfServiceImpl;
 import com.bendb.dropwizard.jooq.JooqBundle;
 import com.bendb.dropwizard.jooq.JooqFactory;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.dropwizard.Application;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
 import io.dropwizard.configuration.SubstitutingSourceProvider;
@@ -16,6 +17,10 @@ import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.assets.AssetsBundle;
+import io.federecio.dropwizard.swagger.SwaggerBundle;
+import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
+import io.swagger.jaxrs.config.BeanConfig;
+import io.swagger.jaxrs.listing.ApiListingResource;
 
 
 public class TruelogicTestApplication extends Application<TruelogicTestConfiguration> {
@@ -54,6 +59,14 @@ public class TruelogicTestApplication extends Application<TruelogicTestConfigura
         }
     };
 
+
+    private final SwaggerBundle<TruelogicTestConfiguration> swaggerBundle = new SwaggerBundle<TruelogicTestConfiguration>() {
+        @Override
+        protected SwaggerBundleConfiguration getSwaggerBundleConfiguration(TruelogicTestConfiguration configuration) {
+            return configuration.swaggerBundleConfiguration;
+        }
+    };
+
     @Override
     public void initialize(final Bootstrap<TruelogicTestConfiguration> bootstrap) {
         // Enable variable substitution with environment variables
@@ -64,6 +77,7 @@ public class TruelogicTestApplication extends Application<TruelogicTestConfigura
                 )
         );
 
+        bootstrap.addBundle(swaggerBundle);
         bootstrap.addBundle(jooq);
         bootstrap.addBundle(new AssetsBundle());
     }
@@ -72,6 +86,13 @@ public class TruelogicTestApplication extends Application<TruelogicTestConfigura
     public void run(final TruelogicTestConfiguration configuration,
                     final Environment environment) {
 
+
+        BeanConfig config = new BeanConfig();
+        config.setTitle("Swagger sample app");
+        config.setVersion("1.0.0");
+        config.setResourcePackage("io.swagger.sample.resource");
+        config.setScan(true);
+
         final BookDAO bookDAO = new BookDAOImpl(jooq.getConfiguration());
         //final BookDAO bookDAO = new BookMockDAOImpl();
         final BookMapper bookMapper = new BookMapper();
@@ -79,6 +100,9 @@ public class TruelogicTestApplication extends Application<TruelogicTestConfigura
         final BookshelfResource bookshelfResource = new BookshelfResource(bookshelfService);
 
         environment.jersey().register(bookshelfResource);
+        environment.jersey().register(new ApiListingResource());
+        environment.getObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
+
     }
 
 }
