@@ -55,4 +55,11 @@ jooq:
   updatablePrimaryKeys: no
 
 swagger:
-  resourcePackage: com.arenteria.test.rest
+  resourcePackage: com.arenteria.test.truelogic.rest
+
+
+flyway:
+  # The default prefix is 'V', but I prefer no prefix at all.
+  sqlMigrationPrefix: ""
+  schemas:
+    - main
