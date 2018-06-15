@@ -53,3 +53,6 @@ jooq:
   executeWithOptimisticLocking: no
   attachRecords: yes
   updatablePrimaryKeys: no
+
+swagger:
+  resourcePackage: com.arenteria.test.rest
