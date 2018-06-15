@@ -60,6 +60,6 @@ swagger:
 
 flyway:
   # The default prefix is 'V', but I prefer no prefix at all.
-  sqlMigrationPrefix: ""
-  schemas:
-    - main
+  sqlMigrationPrefix: V
+  baselineOnMigrate: true
+  schemas: [main]
