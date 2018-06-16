@@ -12,15 +12,8 @@ services:
         - java
         - -jar
         - /home/target/truelogic-1.0-SNAPSHOT.jar
-        - db
-        - migrate
-        - /home/config.yml
-    entrypoint:
-        - java
-        - -jar
-        - /home/target/truelogic-1.0-SNAPSHOT.jar
         - server
-        - /home/config.yml
+        - /home/config/config-docker.yml
 #    depends_on:
 #      - db
     networks:
