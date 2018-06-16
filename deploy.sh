@@ -1,0 +1,1 @@
+java -jar target/truelogic-1.0-SNAPSHOT.jar server config/config.yml
