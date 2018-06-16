@@ -207,7 +207,19 @@
                             <directory>target/generated-sources/jooq</directory>
                         </target>
                         <generate>
+                            <relations>true</relations>
+                            <!--<deprecated>false</deprecated>-->
+                            <!--<instanceFields>true</instanceFields>-->
+                            <!--<generatedAnnotation>true</generatedAnnotation>-->
+                            <!--<records>true</records>-->
+                            <!--<pojos>false</pojos>-->
+                            <!--<immutablePojos>false</immutablePojos>-->
+                            <!--<interfaces>false</interfaces>-->
                             <daos>true</daos>
+                            <!--<jpaAnnotations>false</jpaAnnotations>-->
+                            <!--<validationAnnotations>false</validationAnnotations>-->
+                            <globalObjectReferences>true</globalObjectReferences>
+                            <!--<fluentSetters>false</fluentSetters>-->
                         </generate>
                     </generator>
                 </configuration>

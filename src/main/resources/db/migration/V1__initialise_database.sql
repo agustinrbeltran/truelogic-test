@@ -1,20 +1,25 @@
 DROP TABLE IF EXISTS book;
+DROP TABLE IF EXISTS book_author;
 
+-- tables
+-- Table: book
 CREATE TABLE book (
-    id integer NOT NULL CONSTRAINT book_pk PRIMARY KEY,
+    isbn varchar(14) NOT NULL CONSTRAINT book_pk PRIMARY KEY,
     tittle varchar(255) NOT NULL,
+    subtittle varchar(255) NOT NULL,
+    published date NOT NULL,
+    publisher varchar(255) NOT NULL,
+    pages integer NOT NULL,
     description varchar(1000) NOT NULL,
-    author varchar(255) NOT NULL,
-    content varchar(2000) NOT NULL
+    instock boolean NOT NULL
 );
 
-INSERT INTO book(id,tittle,description,author,content)
-  VALUES (1,
-    'Brief History of Time',
-    '	Stephen Hawking',
-    'A Brief History of Time: From the Big Bang to Black Holes ' ||
-    'is a popular-science book on cosmology (the study of the universe) ' ||
-    'by British physicist Stephen Hawking.[1] It was first published ' ||
-    'in 1988. Hawking wrote the book for nonspecialist readers with ' ||
-    'no prior knowledge of scientific theories.',
-    '................');
+-- Table: book_author
+CREATE TABLE book_author (
+    id integer NOT NULL CONSTRAINT book_author_pk PRIMARY KEY,
+    book_isbn varchar(14) NOT NULL,
+    author varchar(255) NOT NULL,
+    CONSTRAINT book_author_book FOREIGN KEY (book_isbn)
+    REFERENCES book (isbn)
+);
+
