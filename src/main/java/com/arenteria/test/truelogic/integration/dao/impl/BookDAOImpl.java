@@ -68,11 +68,9 @@ public class BookDAOImpl extends DAOImpl<BookRecord, BookEntity, String> impleme
     public void save(BookEntity o) throws DaoException {
         try{
             insert(o);
-
         }catch (Exception e){
             throw new DaoException();
         }
-
     }
 
     @Override

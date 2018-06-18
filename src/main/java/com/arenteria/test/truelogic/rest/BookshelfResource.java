@@ -34,7 +34,7 @@ public class BookshelfResource {
             value = "Find books by tittle or description",
             notes = "Returns books by tittle, description or all books" +
                     " if there are no query parameters declared.",
-            response = Collection.class)
+            response = BookshelfResponse.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Books by tittle,description or all books"),
             @ApiResponse(code = 404, message = "Books not found")
