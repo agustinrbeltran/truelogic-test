@@ -2,17 +2,17 @@ package com.arenteria.test.truelogic.service;
 
 import com.arenteria.test.truelogic.core.exception.ServiceException;
 import com.arenteria.test.truelogic.domain.dto.BookDTO;
-import java.util.Collection;
+import java.util.List;
 
 public interface BookshelfService {
 
-    Collection<BookDTO> findBookByTittle(String tittle);
+    List<BookDTO> findBookByTitle(String title);
 
-    Collection<BookDTO> findBookByDescription(String description);
+    List<BookDTO> findBookByDescription(String description);
 
-    Collection<BookDTO> findAllBooks();
+    List<BookDTO> findAllBooks();
 
-    BookDTO findBookById(Integer id);
+    BookDTO findBookByIsbn(String isbn);
 
     void saveBook(BookDTO bookDTO) throws ServiceException;
 }

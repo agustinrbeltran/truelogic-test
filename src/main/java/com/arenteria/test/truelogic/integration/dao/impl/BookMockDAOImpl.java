@@ -4,22 +4,45 @@ import com.arenteria.test.truelogic.core.exception.DaoException;
 import com.arenteria.test.truelogic.domain.entity.BookEntity;
 import com.arenteria.test.truelogic.integration.dao.BookDAO;
 
+import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 public class BookMockDAOImpl implements BookDAO {
+
+
     @Override
-    public List<BookEntity> fetchById(Integer... values) {
+    public List<BookEntity> fetchByIsbn(String... values) {
         return null;
     }
 
     @Override
-    public BookEntity fetchOneById(Integer value) {
+    public BookEntity fetchOneByIsbn(String value) {
         return null;
     }
 
     @Override
-    public List<BookEntity> fetchByTittle(String... values) {
+    public List<BookEntity> fetchByTitle(String... values) {
+        return null;
+    }
+
+    @Override
+    public List<BookEntity> fetchBySubtitle(String... values) {
+        return null;
+    }
+
+    @Override
+    public List<BookEntity> fetchByPublished(Date... values) {
+        return null;
+    }
+
+    @Override
+    public List<BookEntity> fetchByPublisher(String... values) {
+        return null;
+    }
+
+    @Override
+    public List<BookEntity> fetchByPages(Integer... values) {
         return null;
     }
 
@@ -29,12 +52,7 @@ public class BookMockDAOImpl implements BookDAO {
     }
 
     @Override
-    public List<BookEntity> fetchByAuthor(String... values) {
-        return null;
-    }
-
-    @Override
-    public List<BookEntity> fetchByContent(String... values) {
+    public List<BookEntity> fetchByInstock(Boolean... values) {
         return null;
     }
 
@@ -43,14 +61,11 @@ public class BookMockDAOImpl implements BookDAO {
 
     }
 
-    @Override
     public List<BookEntity> fetchAll() {
-        BookEntity bookEntity1 = new BookEntity(1,"Title1","Description 1","Author1","Content 1");
-        BookEntity bookEntity2 = new BookEntity(1,"Title1","Description 1","Author1","Content 1");
+        //BookEntity bookEntity1 = new BookEntity(1,"Title1","Description 1","Author1","Content 1");
+        //BookEntity bookEntity2 = new BookEntity(1,"Title1","Description 1","Author1","Content 1");
 
         LinkedList<BookEntity> books = new LinkedList<BookEntity>();
-        books.add(bookEntity1);
-        books.add(bookEntity2);
 
         return books;
     }

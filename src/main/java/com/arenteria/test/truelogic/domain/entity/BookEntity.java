@@ -1,56 +1,102 @@
 package com.arenteria.test.truelogic.domain.entity;
 
 import java.io.Serializable;
+import java.sql.Date;
 
+
+@SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class BookEntity implements Serializable {
 
-    private static final long serialVersionUID = 1210666508;
+    private static final long serialVersionUID = -1797103497;
 
-    private Integer id;
-    private String tittle;
-    private String description;
-    private String author;
-    private String content;
+    private String  isbn;
+    private String  title;
+    private String  subtitle;
+    private Date    published;
+    private String  publisher;
+    private Integer pages;
+    private String  description;
+    private Boolean instock;
 
-    public BookEntity() {
-    }
+    public BookEntity() {}
 
     public BookEntity(BookEntity value) {
-        this.id = value.id;
-        this.tittle = value.tittle;
+        this.isbn = value.isbn;
+        this.title = value.title;
+        this.subtitle = value.subtitle;
+        this.published = value.published;
+        this.publisher = value.publisher;
+        this.pages = value.pages;
         this.description = value.description;
-        this.author = value.author;
-        this.content = value.content;
+        this.instock = value.instock;
     }
 
     public BookEntity(
-            Integer id,
-            String tittle,
-            String description,
-            String author,
-            String content
+        String  isbn,
+        String  title,
+        String  subtitle,
+        Date    published,
+        String  publisher,
+        Integer pages,
+        String  description,
+        Boolean instock
     ) {
-        this.id = id;
-        this.tittle = tittle;
+        this.isbn = isbn;
+        this.title = title;
+        this.subtitle = subtitle;
+        this.published = published;
+        this.publisher = publisher;
+        this.pages = pages;
         this.description = description;
-        this.author = author;
-        this.content = content;
+        this.instock = instock;
     }
 
-    public Integer getId() {
-        return this.id;
+    public String getIsbn() {
+        return this.isbn;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
-    public String getTittle() {
-        return this.tittle;
+    public String getTitle() {
+        return this.title;
     }
 
-    public void setTittle(String tittle) {
-        this.tittle = tittle;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getSubtitle() {
+        return this.subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
+    }
+
+    public Date getPublished() {
+        return this.published;
+    }
+
+    public void setPublished(Date published) {
+        this.published = published;
+    }
+
+    public String getPublisher() {
+        return this.publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public Integer getPages() {
+        return this.pages;
+    }
+
+    public void setPages(Integer pages) {
+        this.pages = pages;
     }
 
     public String getDescription() {
@@ -61,31 +107,26 @@ public class BookEntity implements Serializable {
         this.description = description;
     }
 
-    public String getAuthor() {
-        return this.author;
+    public Boolean getInstock() {
+        return this.instock;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getContent() {
-        return this.content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
+    public void setInstock(Boolean instock) {
+        this.instock = instock;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("Book (");
+        StringBuilder sb = new StringBuilder("BookEntity (");
 
-        sb.append(id);
-        sb.append(", ").append(tittle);
+        sb.append(isbn);
+        sb.append(", ").append(title);
+        sb.append(", ").append(subtitle);
+        sb.append(", ").append(published);
+        sb.append(", ").append(publisher);
+        sb.append(", ").append(pages);
         sb.append(", ").append(description);
-        sb.append(", ").append(author);
-        sb.append(", ").append(content);
+        sb.append(", ").append(instock);
 
         sb.append(")");
         return sb.toString();
