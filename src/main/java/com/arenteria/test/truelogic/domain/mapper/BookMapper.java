@@ -43,8 +43,8 @@ public class BookMapper {
         } else {
             BookEntity bookEntity = new BookEntity(
                     bookDTO.getIsbn(),
-                    bookDTO.getTittle(),
-                    bookDTO.getSubtittle(),
+                    bookDTO.getTitle(),
+                    bookDTO.getSubtitle(),
                     bookDTO.getPublished(),
                     bookDTO.getPublisher(),
                     bookDTO.getPages(),

@@ -10,8 +10,8 @@ import java.util.List;
 public class BookDTO {
 
     private String isbn;
-    private String tittle;
-    private String subtittle;
+    private String title;
+    private String subtitle;
     private List<String> authors;
     private Date published;
     private String publisher;
@@ -25,8 +25,8 @@ public class BookDTO {
 
     public BookDTO(
             String isbn,
-            String tittle,
-            String subtittle,
+            String title,
+            String subtitle,
             ArrayList<String> authors,
             Date published,
             String publisher,
@@ -35,8 +35,8 @@ public class BookDTO {
             Boolean instock) {
 
         this.isbn = isbn;
-        this.tittle = tittle;
-        this.subtittle = subtittle;
+        this.title = title;
+        this.subtitle = subtitle;
         this.authors = authors;
         this.published = published;
         this.publisher = publisher;
@@ -48,7 +48,7 @@ public class BookDTO {
 
     public BookDTO(BookEntity bookEntity, List<String> authors) {
         this.isbn = bookEntity.getIsbn();
-        this.tittle = bookEntity.getTittle();
+        this.title = bookEntity.getTitle();
         this.authors = authors;
         this.published = bookEntity.getPublished();
         this.publisher = bookEntity.getPublisher();
@@ -59,8 +59,8 @@ public class BookDTO {
 
 
     @JsonProperty
-    public String getTittle() {
-        return tittle;
+    public String getTitle() {
+        return title;
     }
 
     @JsonProperty
@@ -74,8 +74,8 @@ public class BookDTO {
     }
 
     @JsonProperty
-    public String getSubtittle() {
-        return subtittle;
+    public String getSubtitle() {
+        return subtitle;
     }
 
     @JsonProperty

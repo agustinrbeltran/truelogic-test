@@ -36,12 +36,12 @@ public class BookDAOImpl extends DAOImpl<BookRecord, BookEntity, String> impleme
         return fetchOne(Book.BOOK.ISBN, value);
     }
 
-    public List<BookEntity> fetchByTittle(String... values) {
-        return fetch(Book.BOOK.TITTLE, values);
+    public List<BookEntity> fetchByTitle(String... values) {
+        return fetch(Book.BOOK.TITLE, values);
     }
 
-    public List<BookEntity> fetchBySubtittle(String... values) {
-        return fetch(Book.BOOK.SUBTITTLE, values);
+    public List<BookEntity> fetchBySubtitle(String... values) {
+        return fetch(Book.BOOK.SUBTITLE, values);
     }
 
     public List<BookEntity> fetchByPublished(Date... values) {

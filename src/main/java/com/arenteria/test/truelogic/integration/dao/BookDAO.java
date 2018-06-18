@@ -11,9 +11,9 @@ public interface BookDAO {
 
     BookEntity fetchOneByIsbn(String value);
 
-    List<BookEntity> fetchByTittle(String... values);
+    List<BookEntity> fetchByTitle(String... values);
 
-    List<BookEntity> fetchBySubtittle(String... values);
+    List<BookEntity> fetchBySubtitle(String... values);
 
     List<BookEntity> fetchByPublished(Date... values);
 

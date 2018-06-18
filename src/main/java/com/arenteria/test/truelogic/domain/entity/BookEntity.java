@@ -10,8 +10,8 @@ public class BookEntity implements Serializable {
     private static final long serialVersionUID = -1797103497;
 
     private String  isbn;
-    private String  tittle;
-    private String  subtittle;
+    private String  title;
+    private String  subtitle;
     private Date    published;
     private String  publisher;
     private Integer pages;
@@ -22,8 +22,8 @@ public class BookEntity implements Serializable {
 
     public BookEntity(BookEntity value) {
         this.isbn = value.isbn;
-        this.tittle = value.tittle;
-        this.subtittle = value.subtittle;
+        this.title = value.title;
+        this.subtitle = value.subtitle;
         this.published = value.published;
         this.publisher = value.publisher;
         this.pages = value.pages;
@@ -33,8 +33,8 @@ public class BookEntity implements Serializable {
 
     public BookEntity(
         String  isbn,
-        String  tittle,
-        String  subtittle,
+        String  title,
+        String  subtitle,
         Date    published,
         String  publisher,
         Integer pages,
@@ -42,8 +42,8 @@ public class BookEntity implements Serializable {
         Boolean instock
     ) {
         this.isbn = isbn;
-        this.tittle = tittle;
-        this.subtittle = subtittle;
+        this.title = title;
+        this.subtitle = subtitle;
         this.published = published;
         this.publisher = publisher;
         this.pages = pages;
@@ -59,20 +59,20 @@ public class BookEntity implements Serializable {
         this.isbn = isbn;
     }
 
-    public String getTittle() {
-        return this.tittle;
+    public String getTitle() {
+        return this.title;
     }
 
-    public void setTittle(String tittle) {
-        this.tittle = tittle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getSubtittle() {
-        return this.subtittle;
+    public String getSubtitle() {
+        return this.subtitle;
     }
 
-    public void setSubtittle(String subtittle) {
-        this.subtittle = subtittle;
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
     }
 
     public Date getPublished() {
@@ -120,8 +120,8 @@ public class BookEntity implements Serializable {
         StringBuilder sb = new StringBuilder("BookEntity (");
 
         sb.append(isbn);
-        sb.append(", ").append(tittle);
-        sb.append(", ").append(subtittle);
+        sb.append(", ").append(title);
+        sb.append(", ").append(subtitle);
         sb.append(", ").append(published);
         sb.append(", ").append(publisher);
         sb.append(", ").append(pages);

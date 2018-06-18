@@ -22,12 +22,12 @@ public class BookMockDAOImpl implements BookDAO {
     }
 
     @Override
-    public List<BookEntity> fetchByTittle(String... values) {
+    public List<BookEntity> fetchByTitle(String... values) {
         return null;
     }
 
     @Override
-    public List<BookEntity> fetchBySubtittle(String... values) {
+    public List<BookEntity> fetchBySubtitle(String... values) {
         return null;
     }
 

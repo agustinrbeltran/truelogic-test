@@ -6,14 +6,10 @@ import com.arenteria.test.truelogic.core.exception.ServiceException;
 import com.arenteria.test.truelogic.domain.dto.BookDTO;
 import com.arenteria.test.truelogic.domain.response.BookshelfResponse;
 import com.arenteria.test.truelogic.service.BookshelfService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Collection;
 import java.util.List;
 
 
@@ -31,23 +27,23 @@ public class BookshelfResource {
     @GET
     @Path("/books")
     @ApiOperation(
-            value = "Find books by tittle or description",
-            notes = "Returns books by tittle, description or all books" +
+            value = "Find books by title or description",
+            notes = "Returns books by title, description or all books" +
                     " if there are no query parameters declared.",
             response = BookshelfResponse.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Books by tittle,description or all books"),
+            @ApiResponse(code = 200, message = "Books by title,description or all books"),
             @ApiResponse(code = 404, message = "Books not found")
     })
     public Response getBooks(
-            @QueryParam("tittle") String title,
+            @QueryParam("title") String title,
             @QueryParam("description") String description) {
 
         BookshelfResponse response;
         List<BookDTO> books;
 
         if (title != null) {
-            books = bookshelfService.findBookByTittle(title);
+            books = bookshelfService.findBookByTitle(title);
         } else {
             if (description != null) {
                 books = bookshelfService.findBookByDescription(description);
@@ -73,7 +69,7 @@ public class BookshelfResource {
     @ApiOperation(
             value = "Find book by isbn.",
             notes = "Returns a book by it's isbn.",
-            response = BookDTO.class)
+            response = BookDTO.class,consumes = "{\"isbn\":\"978-1617292231\",\"title\":\"Grokking Algorithms\",\"subtitle\":\"An illustrated guide for programmers and other curious people\",\"authors\":[\"Aditya Bhargava\"],\"published\":\"2016-05-01@00:00:00.000+0000\",\"publisher\":\"Manning Publications\",\"pages\":256,\"description\":\"Grokking Algorithms is a fully illustrated, friendly guide that teaches you how to apply common algorithms to the practical problems you face every day as a programmer. You'll start with sorting and searching and, as you build up your skills in thinking algorithmically, you'll tackle more complex concerns such as data compression and artificial intelligence. Each carefully presented example includes helpful diagrams and fully annotated code samples in Python.\",\"instock\":true}")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "BookEntity"),
             @ApiResponse(code = 404, message = "BookEntity not found")

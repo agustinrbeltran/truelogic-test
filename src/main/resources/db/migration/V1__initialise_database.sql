@@ -13,8 +13,8 @@ CREATE TABLE author (
 -- Table: book
 CREATE TABLE book (
     isbn varchar(14) NOT NULL CONSTRAINT book_pk PRIMARY KEY,
-    tittle varchar(255) NOT NULL,
-    subtittle varchar(255) NOT NULL,
+    title varchar(255) NOT NULL,
+    subtitle varchar(255) NOT NULL,
     published date NOT NULL,
     publisher varchar(255) NOT NULL,
     pages integer NOT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE book_author (
 );
 
 -- Book 1
-INSERT INTO book(isbn, tittle, subtittle, published, publisher, pages, description, instock)
+INSERT INTO book(isbn, title, subtitle, published, publisher, pages, description, instock)
   VALUES(
     '978-1617291999',
     'Java 8 in Action',
@@ -55,7 +55,7 @@ INSERT INTO book_author(book_isbn, author_id) VALUES ('978-1617291999',2);
 INSERT INTO book_author(book_isbn, author_id) VALUES ('978-1617291999',3);
 
 -- Book 2
-INSERT INTO book(isbn, tittle, subtittle, published, publisher, pages, description, instock)
+INSERT INTO book(isbn, title, subtitle, published, publisher, pages, description, instock)
   VALUES(
     '978-0134494166',
     'Clean Architecture',

@@ -28,8 +28,8 @@ public class BookshelfServiceImpl implements BookshelfService {
     }
 
     @Override
-    public List<BookDTO> findBookByTittle(String tittle) {
-        List<BookEntity> books = bookDAO.fetchByTittle(tittle);
+    public List<BookDTO> findBookByTitle(String title) {
+        List<BookEntity> books = bookDAO.fetchByTitle(title);
         List<BookDTO> bookDTOs = bookMapper.bookEntitiesToBookDTOs(books);
         return bookDTOs;
     }

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface BookshelfService {
 
-    List<BookDTO> findBookByTittle(String tittle);
+    List<BookDTO> findBookByTitle(String title);
 
     List<BookDTO> findBookByDescription(String description);
 
