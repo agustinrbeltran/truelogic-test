@@ -1,7 +1,10 @@
 package com.arenteria.test.truelogic;
 
-import com.arenteria.test.truelogic.domain.mapper.BookMapper;
+import com.arenteria.test.truelogic.integration.dao.AuthorDAO;
+import com.arenteria.test.truelogic.integration.dao.BookAuthorDAO;
 import com.arenteria.test.truelogic.integration.dao.BookDAO;
+import com.arenteria.test.truelogic.integration.dao.impl.AuthorDAOImpl;
+import com.arenteria.test.truelogic.integration.dao.impl.BookAuthorDAOImpl;
 import com.arenteria.test.truelogic.integration.dao.impl.BookDAOImpl;
 import com.arenteria.test.truelogic.rest.BookshelfResource;
 import com.arenteria.test.truelogic.service.BookshelfService;
@@ -94,6 +97,7 @@ public class TruelogicTestApplication extends Application<TruelogicTestConfigura
         bootstrap.addBundle(jooq);
         bootstrap.addBundle(new AssetsBundle());
         bootstrap.addBundle(flyway);
+
     }
 
     @Override
@@ -109,10 +113,15 @@ public class TruelogicTestApplication extends Application<TruelogicTestConfigura
 
         //Bookshelf resource build
         final BookDAO bookDAO = new BookDAOImpl(jooq.getConfiguration());
+        final AuthorDAO authorDAO = new AuthorDAOImpl(jooq.getConfiguration());
+        final BookAuthorDAO bookAuthorDAO = new BookAuthorDAOImpl(jooq.getConfiguration());
         //final BookDAO bookDAO = new BookMockDAOImpl();
-        final BookMapper bookMapper = new BookMapper();
-        final BookshelfService bookshelfService = new BookshelfServiceImpl(bookDAO, bookMapper);
+        final BookshelfService bookshelfService = new BookshelfServiceImpl(bookDAO,authorDAO,bookAuthorDAO);
         final BookshelfResource bookshelfResource = new BookshelfResource(bookshelfService);
+
+
+        environment.jersey().register(bookDAO);
+
 
         //Resource registering
         environment.jersey().register(bookshelfResource);

@@ -4,16 +4,17 @@ import com.arenteria.test.truelogic.core.exception.InternalServerErrorException;
 import com.arenteria.test.truelogic.core.exception.NotFoundException;
 import com.arenteria.test.truelogic.core.exception.ServiceException;
 import com.arenteria.test.truelogic.domain.dto.BookDTO;
+import com.arenteria.test.truelogic.domain.response.BookshelfResponse;
 import com.arenteria.test.truelogic.service.BookshelfService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
+import java.util.List;
 
 
 @Path("/api/bookshelf")
@@ -42,48 +43,51 @@ public class BookshelfResource {
             @QueryParam("tittle") String title,
             @QueryParam("description") String description) {
 
-        Collection<BookDTO> response;
+        BookshelfResponse response;
+        List<BookDTO> books;
 
         if (title != null) {
-            response = bookshelfService.findBookByTittle(title);
+            books = bookshelfService.findBookByTittle(title);
         } else {
             if (description != null) {
-                response = bookshelfService.findBookByDescription(description);
+                books = bookshelfService.findBookByDescription(description);
             } else {
-                response = bookshelfService.findAllBooks();
+                books = bookshelfService.findAllBooks();
             }
 
         }
 
-        if (response.isEmpty()){
+        if (books.isEmpty()) {
             NotFoundException notFoundException = new NotFoundException(404, "Books not found");
             return Response.status(Response.Status.NOT_FOUND).entity(notFoundException).build();
         }
+
+        response = new BookshelfResponse(books);
 
         return Response.ok(response).build();
     }
 
 
     @GET
-    @Path("/books/{id}")
+    @Path("/books/{isbn}")
     @ApiOperation(
-            value = "Find book by id.",
-            notes = "Returns a book by it's id.",
+            value = "Find book by isbn.",
+            notes = "Returns a book by it's isbn.",
             response = BookDTO.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Book"),
-            @ApiResponse(code = 404, message = "Book not found")
+            @ApiResponse(code = 200, message = "BookEntity"),
+            @ApiResponse(code = 404, message = "BookEntity not found")
     })
-    public Response getBook(@PathParam("id") Integer id) {
+    public Response getBook(@PathParam("isbn") String isbn) {
 
-            BookDTO response = bookshelfService.findBookById(id);
+        BookDTO book = bookshelfService.findBookByIsbn(isbn);
 
-            if (response != null){
-                return Response.ok(response).build();
-            }
+        if (book != null) {
+            return Response.ok(book).build();
+        }
 
-            NotFoundException notFoundException = new NotFoundException(404, "Book not found");
-            return Response.status(Response.Status.NOT_FOUND).entity(notFoundException).build();
+        NotFoundException notFoundException = new NotFoundException(404, "BookEntity not found");
+        return Response.status(Response.Status.NOT_FOUND).entity(notFoundException).build();
     }
 
 
@@ -91,7 +95,7 @@ public class BookshelfResource {
     @Path("/books")
     @ApiOperation(value = "Add a new book to the bookshelf.")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Book was successfully added to the bookshelf."),
+            @ApiResponse(code = 200, message = "BookEntity was successfully added to the bookshelf."),
             @ApiResponse(code = 500, message = "The book could not be saved duo to some error in the server.")
     })
     public Response saveBook(BookDTO bookDTO) {

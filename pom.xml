@@ -201,6 +201,8 @@
                             <name>org.jooq.meta.sqlite.SQLiteDatabase</name>
                             <includes>.*</includes>
                             <excludes></excludes>
+                            <includeForeignKeys>false</includeForeignKeys>
+
                         </database>
                         <target>
                             <packageName>com.arenteria.test.truelogic.db</packageName>
