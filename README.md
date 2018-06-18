@@ -12,3 +12,20 @@ Health Check
 ---
 
 To see your applications health enter url `http://localhost:8081/healthcheck`
+
+Use Case Diagram
+---
+![image](https://user-images.githubusercontent.com/20670067/41552987-ceb9a780-7306-11e8-8c72-05af58160d63.png)
+
+
+
+Data Model (relational model)
+---
+![image](https://user-images.githubusercontent.com/20670067/41553272-9bf92f40-7307-11e8-984a-72fcfcebac9c.png)
+
+
+Package Diagram
+---
+![image](https://user-images.githubusercontent.com/20670067/41553138-3e9892dc-7307-11e8-96c4-fce714f80b55.png)
+
+
