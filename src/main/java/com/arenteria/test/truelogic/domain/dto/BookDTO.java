@@ -1,6 +1,7 @@
 package com.arenteria.test.truelogic.domain.dto;
 
 import com.arenteria.test.truelogic.domain.entity.BookEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -12,9 +13,6 @@ public class BookDTO {
     private String tittle;
     private String subtittle;
     private List<String> authors;
-
-
-
     private Date published;
     private String publisher;
     private Integer pages;
@@ -85,7 +83,7 @@ public class BookDTO {
         return authors;
     }
 
-    @JsonProperty
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
     public Date getPublished() {
         return published;
     }
