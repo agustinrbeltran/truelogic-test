@@ -25,6 +25,11 @@ import io.federecio.dropwizard.swagger.SwaggerBundle;
 import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 import io.swagger.jaxrs.config.BeanConfig;
 import io.swagger.jaxrs.listing.ApiListingResource;
+import org.eclipse.jetty.servlets.CrossOriginFilter;
+
+import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration;
+import java.util.EnumSet;
 
 
 public class TruelogicTestApplication extends Application<TruelogicTestConfiguration> {
@@ -116,7 +121,7 @@ public class TruelogicTestApplication extends Application<TruelogicTestConfigura
         final AuthorDAO authorDAO = new AuthorDAOImpl(jooq.getConfiguration());
         final BookAuthorDAO bookAuthorDAO = new BookAuthorDAOImpl(jooq.getConfiguration());
         //final BookDAO bookDAO = new BookMockDAOImpl();
-        final BookshelfService bookshelfService = new BookshelfServiceImpl(bookDAO,authorDAO,bookAuthorDAO);
+        final BookshelfService bookshelfService = new BookshelfServiceImpl(bookDAO, authorDAO, bookAuthorDAO);
         final BookshelfResource bookshelfResource = new BookshelfResource(bookshelfService);
 
 
@@ -127,6 +132,23 @@ public class TruelogicTestApplication extends Application<TruelogicTestConfigura
         environment.jersey().register(bookshelfResource);
         environment.jersey().register(new ApiListingResource());
         environment.getObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
+
+        //Configure CORS
+        configureCors(environment);
+    }
+
+    private void configureCors(Environment environment) {
+        final FilterRegistration.Dynamic cors =
+                environment.servlets().addFilter("CORS", CrossOriginFilter.class);
+
+        // Configure CORS parameters
+        cors.setInitParameter(CrossOriginFilter.ALLOWED_ORIGINS_PARAM, "*");
+        cors.setInitParameter(CrossOriginFilter.ALLOWED_HEADERS_PARAM, "X-Requested-With,Content-Type,Accept,Origin,Authorization");
+        cors.setInitParameter(CrossOriginFilter.ALLOWED_METHODS_PARAM, "OPTIONS,GET,PUT,POST,DELETE,HEAD");
+        cors.setInitParameter(CrossOriginFilter.ALLOW_CREDENTIALS_PARAM, "true");
+
+        // Add URL mapping
+        cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
 
     }
 
