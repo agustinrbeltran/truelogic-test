@@ -25,6 +25,7 @@
         <sqlite.version>3.23.1</sqlite.version>
         <swagger.version>1.3.1-1</swagger.version>
         <jooq-dropwizzard-bundle.version>1.2.0-0</jooq-dropwizzard-bundle.version>
+        <appengine.maven.plugin>1.3.2</appengine.maven.plugin>
         <mainClass>com.arenteria.test.truelogic.TruelogicTestApplication</mainClass>
     </properties>
 
@@ -225,6 +226,11 @@
                         </generate>
                     </generator>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>appengine-maven-plugin</artifactId>
+                <version>${appengine.maven.plugin}</version>
             </plugin>
         </plugins>
     </build>
