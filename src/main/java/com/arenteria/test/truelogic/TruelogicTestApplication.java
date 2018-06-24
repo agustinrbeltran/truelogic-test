@@ -141,23 +141,6 @@ public class TruelogicTestApplication extends Application<TruelogicTestConfigura
         enableCors(environment, allowedOrigins);
     }
 
-    private void configureCors(Environment environment) {
-        final FilterRegistration.Dynamic cors =
-                environment.servlets().addFilter("CORS", CrossOriginFilter.class);
-
-        // Configure CORS parameters
-        cors.setInitParameter(CrossOriginFilter.ALLOWED_ORIGINS_PARAM, "*");
-        //cors.setInitParameter(CrossOriginFilter.ALLOWED_HEADERS_PARAM, "X-Requested-With,Content-Type,Accept,Origin,Authorization");
-        cors.setInitParameter(CrossOriginFilter.ALLOWED_HEADERS_PARAM, "Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin");
-        cors.setInitParameter(CrossOriginFilter.ALLOWED_METHODS_PARAM, "OPTIONS,GET,PUT,POST,DELETE,HEAD");
-        cors.setInitParameter(CrossOriginFilter.ALLOW_CREDENTIALS_PARAM, "true");
-
-
-        // Add URL mapping
-        cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
-
-    }
-
     private void enableCors(Environment environment, List<String> allowedOrigins) {
         FilterRegistration.Dynamic filter = environment.servlets().addFilter("cors", CrossOriginFilter.class);
         filter.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
@@ -169,6 +152,5 @@ public class TruelogicTestApplication extends Application<TruelogicTestConfigura
         filter.setInitParameter("allowCredentials", "true");
         filter.setInitParameter("exposedHeaders", "Date");
     }
-
 
 }
