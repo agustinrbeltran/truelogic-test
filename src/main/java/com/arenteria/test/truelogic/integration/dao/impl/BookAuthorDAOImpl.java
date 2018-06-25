@@ -47,7 +47,7 @@ public class BookAuthorDAOImpl extends DAOImpl<BookAuthorRecord,BookAuthorEntity
         try{
             insert(o);
         }catch (Exception e){
-            throw new DaoException();
+            throw new DaoException(e.getMessage());
         }
     }
 }

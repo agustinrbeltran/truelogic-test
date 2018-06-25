@@ -10,6 +10,7 @@ import io.swagger.annotations.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -42,19 +43,23 @@ public class BookshelfResource {
         BookshelfResponse response;
         List<BookDTO> books;
 
-        if (title != null) {
-            books = bookshelfService.findBookByTitle(title);
-        } else {
-            if (description != null) {
-                books = bookshelfService.findBookByDescription(description);
+        try {
+            if (title != null) {
+                books = bookshelfService.findBookByTitle(title);
             } else {
-                books = bookshelfService.findAllBooks();
-            }
+                if (description != null) {
+                    books = bookshelfService.findBookByDescription(description);
+                } else {
+                    books = bookshelfService.findAllBooks();
+                }
 
+            }
+        } catch (ServiceException e) {
+            books = new ArrayList<>();
         }
 
         if (books.isEmpty()) {
-            NotFoundException notFoundException = new NotFoundException(404, "Books not found");
+            NotFoundException notFoundException = new NotFoundException("Books not found");
             return Response.status(Response.Status.NOT_FOUND).entity(notFoundException).build();
         }
 
@@ -69,21 +74,27 @@ public class BookshelfResource {
     @ApiOperation(
             value = "Find book by isbn.",
             notes = "Returns a book by it's isbn.",
-            response = BookDTO.class,consumes = "{\"isbn\":\"978-1617292231\",\"title\":\"Grokking Algorithms\",\"subtitle\":\"An illustrated guide for programmers and other curious people\",\"authors\":[\"Aditya Bhargava\"],\"published\":\"2016-05-01@00:00:00.000+0000\",\"publisher\":\"Manning Publications\",\"pages\":256,\"description\":\"Grokking Algorithms is a fully illustrated, friendly guide that teaches you how to apply common algorithms to the practical problems you face every day as a programmer. You'll start with sorting and searching and, as you build up your skills in thinking algorithmically, you'll tackle more complex concerns such as data compression and artificial intelligence. Each carefully presented example includes helpful diagrams and fully annotated code samples in Python.\",\"instock\":true}")
+            response = BookDTO.class, consumes = "{\"isbn\":\"978-1617292231\",\"title\":\"Grokking Algorithms\",\"subtitle\":\"An illustrated guide for programmers and other curious people\",\"authors\":[\"Aditya Bhargava\"],\"published\":\"2016-05-01@00:00:00.000+0000\",\"publisher\":\"Manning Publications\",\"pages\":256,\"description\":\"Grokking Algorithms is a fully illustrated, friendly guide that teaches you how to apply common algorithms to the practical problems you face every day as a programmer. You'll start with sorting and searching and, as you build up your skills in thinking algorithmically, you'll tackle more complex concerns such as data compression and artificial intelligence. Each carefully presented example includes helpful diagrams and fully annotated code samples in Python.\",\"instock\":true}")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "BookEntity"),
             @ApiResponse(code = 404, message = "BookEntity not found")
     })
     public Response getBook(@PathParam("isbn") String isbn) {
 
-        BookDTO book = bookshelfService.findBookByIsbn(isbn);
+        BookDTO book;
 
-        if (book != null) {
-            return Response.ok(book).build();
+        try {
+            book = bookshelfService.findBookByIsbn(isbn);
+        } catch (ServiceException e) {
+            book = null;
         }
 
-        NotFoundException notFoundException = new NotFoundException(404, "BookEntity not found");
-        return Response.status(Response.Status.NOT_FOUND).entity(notFoundException).build();
+        if (book == null) {
+            NotFoundException notFoundException = new NotFoundException("Book not found");
+            return Response.status(Response.Status.NOT_FOUND).entity(notFoundException).build();
+        }
+
+        return Response.ok(book).build();
     }
 
 
@@ -99,7 +110,7 @@ public class BookshelfResource {
             bookshelfService.saveBook(bookDTO);
             return Response.ok().entity("SUCCESS").build();
         } catch (ServiceException e) {
-            InternalServerErrorException internalServerErrorException = new InternalServerErrorException(500, "The book could not be saved.");
+            InternalServerErrorException internalServerErrorException = new InternalServerErrorException("The book could not be saved.");
             return Response.serverError().entity(internalServerErrorException).build();
         }
     }

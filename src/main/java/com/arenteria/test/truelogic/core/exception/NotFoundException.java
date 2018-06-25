@@ -2,10 +2,9 @@ package com.arenteria.test.truelogic.core.exception;
 
 public class NotFoundException extends RestException {
 
-    private int code;
+    private static final int CODE = 404;
 
-    public NotFoundException (int code, String msg) {
-        super(code, msg);
-        this.code = code;
+    public NotFoundException (String msg) {
+        super(CODE, msg);
     }
 }

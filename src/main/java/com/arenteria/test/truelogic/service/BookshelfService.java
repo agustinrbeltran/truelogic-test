@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface BookshelfService {
 
-    List<BookDTO> findBookByTitle(String title);
+    List<BookDTO> findBookByTitle(String title) throws ServiceException;
 
-    List<BookDTO> findBookByDescription(String description);
+    List<BookDTO> findBookByDescription(String description) throws ServiceException;
 
-    List<BookDTO> findAllBooks();
+    List<BookDTO> findAllBooks() throws ServiceException;
 
-    BookDTO findBookByIsbn(String isbn);
+    BookDTO findBookByIsbn(String isbn) throws ServiceException;
 
     void saveBook(BookDTO bookDTO) throws ServiceException;
 }

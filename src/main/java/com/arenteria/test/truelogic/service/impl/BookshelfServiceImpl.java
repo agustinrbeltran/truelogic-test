@@ -11,6 +11,7 @@ import com.arenteria.test.truelogic.integration.dao.AuthorDAO;
 import com.arenteria.test.truelogic.integration.dao.BookAuthorDAO;
 import com.arenteria.test.truelogic.integration.dao.BookDAO;
 import com.arenteria.test.truelogic.service.BookshelfService;
+
 import java.util.List;
 
 public class BookshelfServiceImpl implements BookshelfService {
@@ -28,39 +29,47 @@ public class BookshelfServiceImpl implements BookshelfService {
     }
 
     @Override
-    public List<BookDTO> findBookByTitle(String title) {
-        List<BookEntity> books = bookDAO.fetchByTitle(title);
-        List<BookDTO> bookDTOs = bookMapper.bookEntitiesToBookDTOs(books);
-        return bookDTOs;
-    }
-
-    @Override
-    public List<BookDTO> findBookByDescription(String description) {
-        List<BookEntity> books = bookDAO.fetchByDescription(description);
-        List<BookDTO> bookDTOs = bookMapper.bookEntitiesToBookDTOs(books);
-        return bookDTOs;
-    }
-
-    @Override
-    public List<BookDTO> findAllBooks() {
-        List<BookEntity> books = bookDAO.fetchAll();
-        List<BookDTO> bookDTOs = bookMapper.bookEntitiesToBookDTOs(books);
-        return bookDTOs;
-    }
-
-    @Override
-    public BookDTO findBookByIsbn(String isbn) {
-
-        BookEntity bookEntity = bookDAO.fetchOneByIsbn(isbn);
-
-        BookDTO response = null;
-
-        if (bookEntity != null) {
-            response = bookMapper.bookEntityToBookDTO(bookEntity);
+    public List<BookDTO> findBookByTitle(String title) throws ServiceException {
+        try {
+            List<BookEntity> books = bookDAO.fetchByTitle(title);
+            List<BookDTO> bookDTOs = bookMapper.bookEntitiesToBookDTOs(books);
+            return bookDTOs;
+        } catch (Exception e) {
+            throw new ServiceException(e.getMessage());
         }
+    }
 
-        return response;
+    @Override
+    public List<BookDTO> findBookByDescription(String description) throws ServiceException {
+        try {
+            List<BookEntity> books = bookDAO.fetchByDescription(description);
+            List<BookDTO> bookDTOs = bookMapper.bookEntitiesToBookDTOs(books);
+            return bookDTOs;
+        } catch (Exception e) {
+            throw new ServiceException(e.getMessage());
+        }
+    }
 
+    @Override
+    public List<BookDTO> findAllBooks() throws ServiceException {
+        try {
+            List<BookEntity> books = bookDAO.fetchAll();
+            List<BookDTO> bookDTOs = bookMapper.bookEntitiesToBookDTOs(books);
+            return bookDTOs;
+        } catch (Exception e) {
+            throw new ServiceException(e.getMessage());
+        }
+    }
+
+    @Override
+    public BookDTO findBookByIsbn(String isbn) throws ServiceException {
+        try {
+            BookEntity bookEntity = bookDAO.fetchOneByIsbn(isbn);
+            BookDTO response = bookMapper.bookEntityToBookDTO(bookEntity);
+            return response;
+        } catch (Exception e) {
+            throw new ServiceException(e.getMessage());
+        }
     }
 
     @Override
@@ -83,13 +92,13 @@ public class BookshelfServiceImpl implements BookshelfService {
                     authorEntity = result.get(0);
                 }
 
-                BookAuthorEntity bookAuthorEntity = new BookAuthorEntity(bookEntity.getIsbn(),authorEntity.getId());
+                BookAuthorEntity bookAuthorEntity = new BookAuthorEntity(bookEntity.getIsbn(), authorEntity.getId());
                 bookAuthorDao.save(bookAuthorEntity);
             }
 
 
         } catch (DaoException e) {
-            throw new ServiceException();
+            throw new ServiceException(e.getMessage());
         }
 
     }

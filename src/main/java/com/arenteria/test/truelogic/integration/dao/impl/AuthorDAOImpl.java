@@ -48,7 +48,7 @@ public class AuthorDAOImpl extends DAOImpl<AuthorRecord, AuthorEntity, Integer> 
         try{
             insert(a);
         }catch (Exception e){
-            throw new DaoException();
+            throw new DaoException(e.getMessage());
         }
     }
 }

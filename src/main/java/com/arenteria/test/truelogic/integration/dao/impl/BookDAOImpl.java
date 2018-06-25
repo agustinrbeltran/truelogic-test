@@ -69,7 +69,7 @@ public class BookDAOImpl extends DAOImpl<BookRecord, BookEntity, String> impleme
         try{
             insert(o);
         }catch (Exception e){
-            throw new DaoException();
+            throw new DaoException(e.getMessage());
         }
     }
 

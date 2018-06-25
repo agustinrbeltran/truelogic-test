@@ -2,10 +2,9 @@ package com.arenteria.test.truelogic.core.exception;
 
 public class InternalServerErrorException extends RestException {
 
-    private int code;
+    private static final int CODE = 500;
 
-    public InternalServerErrorException (int code, String msg) {
-        super(code, msg);
-        this.code = code;
+    public InternalServerErrorException (String msg) {
+        super(CODE, msg);
     }
 }
