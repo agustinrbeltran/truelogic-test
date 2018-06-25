@@ -25,6 +25,13 @@ import io.federecio.dropwizard.swagger.SwaggerBundle;
 import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 import io.swagger.jaxrs.config.BeanConfig;
 import io.swagger.jaxrs.listing.ApiListingResource;
+import org.eclipse.jetty.servlets.CrossOriginFilter;
+
+import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration;
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
 
 
 public class TruelogicTestApplication extends Application<TruelogicTestConfiguration> {
@@ -116,7 +123,7 @@ public class TruelogicTestApplication extends Application<TruelogicTestConfigura
         final AuthorDAO authorDAO = new AuthorDAOImpl(jooq.getConfiguration());
         final BookAuthorDAO bookAuthorDAO = new BookAuthorDAOImpl(jooq.getConfiguration());
         //final BookDAO bookDAO = new BookMockDAOImpl();
-        final BookshelfService bookshelfService = new BookshelfServiceImpl(bookDAO,authorDAO,bookAuthorDAO);
+        final BookshelfService bookshelfService = new BookshelfServiceImpl(bookDAO, authorDAO, bookAuthorDAO);
         final BookshelfResource bookshelfResource = new BookshelfResource(bookshelfService);
 
 
@@ -128,6 +135,22 @@ public class TruelogicTestApplication extends Application<TruelogicTestConfigura
         environment.jersey().register(new ApiListingResource());
         environment.getObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
+        //Configure CORS
+        //configureCors(environment);
+        List<String> allowedOrigins = new ArrayList<String>('*');
+        enableCors(environment, allowedOrigins);
+    }
+
+    private void enableCors(Environment environment, List<String> allowedOrigins) {
+        FilterRegistration.Dynamic filter = environment.servlets().addFilter("cors", CrossOriginFilter.class);
+        filter.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
+        filter.setInitParameter(CrossOriginFilter.ALLOWED_METHODS_PARAM, "GET,PUT,POST,DELETE,OPTIONS");
+        // Which hosts are allowed to use the API?
+        filter.setInitParameter(CrossOriginFilter.ALLOWED_ORIGINS_PARAM, String.join(",", allowedOrigins));
+        filter.setInitParameter(CrossOriginFilter.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*");
+        filter.setInitParameter("allowedHeaders", "*");
+        filter.setInitParameter("allowCredentials", "true");
+        filter.setInitParameter("exposedHeaders", "Date");
     }
 
 }
